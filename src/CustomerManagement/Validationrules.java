@@ -1,27 +1,32 @@
 package CustomerManagement;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 public class Validationrules {
 	public static ServicePlan PlanValidate(String sp) throws IllegalArgumentException{
 		return ServicePlan.valueOf(sp.toUpperCase());
 	}
-	private static String validatepassword(String password) throws InvalidInputException{
-		if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*%&?]).{5,20}"))
+	public static String validatepassword(String password) throws InvalidInputException{
+		if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*%&?]).{8,}"))
 			throw new InvalidInputException(" Password is weak \n\" It should have 1 number,1 uppercase, 1 lowercase, 1  and its length should be 8 or more... ");
 		return password;
 	}
-	private static String Checkmailsyntax(String email) throws InvalidInputException{
+	public static String Checkmailsyntax(String email) throws InvalidInputException{
 		if(!email.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"))
 			throw new InvalidInputException(" The email you entered is not valid!! ");
-		return email;
+		return email.toLowerCase();
 	}
-	private static String validatemail(String email,List<Customer> L) throws DuplicateValueException{
+	public static String validatemail(String email,List<Customer> L) throws DuplicateValueException{
 		Customer M=new Customer(email);
 		if(L.contains(M))
 			throw new DuplicateValueException(" Email is already Present in the List!! ");
 		
 		return email;
+	}
+	public static LocalDate validateparse(String dop) throws DateTimeParseException{
+		return LocalDate.parse(dop);
 	}
 	public static ServicePlan RegAmountvalidate(ServicePlan sp,Double regamount) throws InvalidInputException{
 		try{
@@ -49,13 +54,12 @@ public class Validationrules {
 				return sp;
 		 }
 	}
-	public static Customer validateallinputs(String fname, String lname, String email, String password, double regamount, String sp,List<Customer> C) throws InvalidInputException,DuplicateValueException{
+	public static Customer validateallinputs(String fname, String lname, String email, String password,String dop, double regamount, String sp,List<Customer> C) throws DateTimeParseException,InvalidInputException,DuplicateValueException{
 		String checkmail=validatemail(Checkmailsyntax(email),C);
 		String passwd=validatepassword(password);
+		LocalDate paydate=validateparse(dop);
 		ServicePlan checkplan=RegAmountvalidate(PlanValidate(sp),regamount);
-		return new Customer(fname,lname,checkmail,passwd,regamount,checkplan);
+		return new Customer(fname,lname,checkmail,passwd,paydate,regamount,checkplan);
 	}
-
-
 }
 

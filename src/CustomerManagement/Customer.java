@@ -1,23 +1,33 @@
 package CustomerManagement;
 
-import ShowroomManagement.Vehicle;
+import java.time.LocalDate;
+
 
 public class Customer implements Comparable<Customer>{
 	private int cid;
 	private String fname,lname,email,password;
+	private LocalDate dop;
 	private double regamount;
 
 	private ServicePlan sp;
 	private static int autoinc=0;
-	public Customer(String fname, String lname, String email, String password, double regamount, ServicePlan sp) {
+	public Customer(String fname, String lname, String email, String password, LocalDate dop, double regamount,
+			ServicePlan sp) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
 		this.password = password;
+		this.dop = dop;
 		this.regamount = regamount;
 		this.sp = sp;
 		this.cid=++autoinc;
+	}
+	public LocalDate getDop() {
+		return dop;
+	}
+	public void setDop(LocalDate dop) {
+		this.dop = dop;
 	}
 	public Customer(String email) {
 		this.email=email;
@@ -74,7 +84,7 @@ public class Customer implements Comparable<Customer>{
 	public boolean equals(Object o) {
 		if (o instanceof Customer) {
 			Customer v=(Customer)o;
-			return this.email.equals(v.email);
+			return this.email.equals(v.email)&&this.password.equals(v.password);
 		}
 		return false;
 	}

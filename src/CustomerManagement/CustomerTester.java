@@ -1,5 +1,6 @@
 package CustomerManagement;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,13 +15,13 @@ public class CustomerTester{
 			boolean exit = false;
 			while (!exit) {
 				System.out.println("Options : 1 . Customer Registration \n" + "2. Login Authentication via Email \n" + "3. Change password \n "
-						+ "4. Unsuscribe via email \n " + "5. Display all \n"+" 6.Exit : ");
+						+ "4. Unsuscribe via email \n " + "5. Display all \n"+"6. Add Custom Random data \n"+" 0.Exit : ");
 				try {
 					switch (sc.nextInt()) {
 					
 					case 1: // add a vehicle
-							System.out.println("Enter the Customer details- First Name, Last Name, Email, Password, Registered Amount, Service Plan : ");
-							Customer customer=Validationrules.validateallinputs(sc.next(),sc.next(),sc.next(),sc.next(),sc.nextDouble(),sc.next(),customers);
+							System.out.println("Enter the Customer details- First Name, Last Name, Email, Password, Date of Payment, Registered Amount, Service Plan : ");
+							Customer customer=Validationrules.validateallinputs(sc.next(),sc.next(),sc.next(),sc.next(),sc.next(),sc.nextDouble(),sc.next(),customers);
 							// => success
 							customers.add(customer);
 							System.out.println("Customer registered....");
@@ -65,15 +66,21 @@ public class CustomerTester{
 							for (Customer c : customers)
 								System.out.println(c);
 							break;
-
-					case 6:
+					case 6: CustomerUtils.addcustomdata(customers);
+							System.out.println(" Added custom data to the list.... ");
+							break;
+					case 0:
 						exit = true;
 						break;
 					default:System.out.println(" Invalid Choice Enter Again.... ");	
 							break;
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception E) {
+					if(E instanceof InputMismatchException)
+					{
+						sc.nextLine();
+					}
+					E.printStackTrace();
 				}
 			}
 		}	

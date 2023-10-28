@@ -49,14 +49,16 @@ public class CustomerTester{
 							}
 							break;
 						
-					case 4:
-							System.out.println("Enter Email for unsuscribing...");
-							Customer P = new Customer(sc.next());
-							int index = customers.indexOf(P);
-							if (index == -1)
-								throw new InvalidInputException("Invalid Email , Customer not found !!!!");
-							customers.remove(index);
-							System.out.println(" Customer unsuscribed succesfully!! ");
+					case 4:	System.out.println("Enter Email and Password for changing password");
+							String em1=sc.next();
+							String pass=sc.next();
+							if(CustomerUtils.authentication(em1,pass,customers))
+							{	Customer p=new Customer(em1,pass);
+								Customer toremove = customers.get(customers.indexOf(p));
+								if (!(customers.remove(toremove)))
+									throw new InvalidInputException("Invalid Email , Customer not found !!!!");
+								System.out.println(" Customer unsuscribed succesfully!! ");
+							}	
 							break;
 	
 					case 5:

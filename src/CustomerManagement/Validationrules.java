@@ -25,8 +25,8 @@ public class Validationrules {
 		
 		return email;
 	}
-	public static LocalDate validateparse(String dop) throws DateTimeParseException{
-		return LocalDate.parse(dop);
+	public static LocalDate validateparse(String dob) throws DateTimeParseException{
+		return LocalDate.parse(dob);
 	}
 	public static ServicePlan RegAmountvalidate(ServicePlan sp,Double regamount) throws InvalidInputException{
 		try{
@@ -54,12 +54,13 @@ public class Validationrules {
 				return sp;
 		 }
 	}
-	public static Customer validateallinputs(String fname, String lname, String email, String password,String dop, double regamount, String sp,List<Customer> C) throws DateTimeParseException,InvalidInputException,DuplicateValueException{
+	public static Customer validateallinputs(String fname, String lname, String email, String password,String dob, double regamount,String lastpaidsuscription,String sp,List<Customer> C) throws DateTimeParseException,InvalidInputException,DuplicateValueException{
 		String checkmail=validatemail(Checkmailsyntax(email),C);
 		String passwd=validatepassword(password);
-		LocalDate paydate=validateparse(dop);
+		LocalDate birthdate=validateparse(dob);
+		LocalDate paydate=validateparse(lastpaidsuscription);
 		ServicePlan checkplan=RegAmountvalidate(PlanValidate(sp),regamount);
-		return new Customer(fname,lname,checkmail,passwd,paydate,regamount,checkplan);
+		return new Customer(fname,lname,checkmail,passwd,birthdate,regamount,paydate,checkplan);
 	}
 }
 

@@ -45,7 +45,6 @@ public class Vehicle implements Comparable<Vehicle>{
 
 	@Override
 	public boolean equals(Object o) {
-		System.out.println("in vehicle's eq");
 		if (o instanceof Vehicle) {
 			Vehicle v=(Vehicle)o;
 			return this.chasisNo.equals(v.chasisNo);
@@ -56,7 +55,6 @@ public class Vehicle implements Comparable<Vehicle>{
 	@Override
 	public int compareTo(Vehicle anotherVehicle)
 	{
-		System.out.println("in compareTo");
 		return this.chasisNo.compareTo(anotherVehicle.chasisNo);
 	}
 	

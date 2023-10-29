@@ -6,28 +6,40 @@ import java.time.LocalDate;
 public class Customer implements Comparable<Customer>{
 	private int cid;
 	private String fname,lname,email,password;
-	private LocalDate dop;
+	private LocalDate dob,lastpaidsuscription;
 	private double regamount;
 
 	private ServicePlan sp;
-	private static int autoinc=0;
-	public Customer(String fname, String lname, String email, String password, LocalDate dop, double regamount,
+	private static int autoinc=-1;
+	public Customer(String fname, String lname, String email, String password, LocalDate dob, double regamount,LocalDate lastpaidsuscription,
 			ServicePlan sp) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.email = email;
 		this.password = password;
-		this.dop = dop;
+		this.dob = dob;
 		this.regamount = regamount;
+		this.lastpaidsuscription=lastpaidsuscription;
 		this.sp = sp;
 		this.cid=++autoinc;
 	}
-	public LocalDate getDop() {
-		return dop;
+	public LocalDate getLastpaidsuscription() {
+		return lastpaidsuscription;
 	}
-	public void setDop(LocalDate dop) {
-		this.dop = dop;
+	public void setLastpaidsuscription(LocalDate lastpaidsuscription) {
+		this.lastpaidsuscription = lastpaidsuscription;
+	}
+	public Customer(String fname,String email,String password) {
+		this.fname = fname;
+		this.email = email;
+		this.password = password;
+	}
+	public LocalDate getDob() {
+		return dob;
+	}
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
 	}
 	public Customer(String email) {
 		this.email=email;
@@ -38,8 +50,8 @@ public class Customer implements Comparable<Customer>{
 	}
 	@Override
 	public String toString() {
-		return "Customer [cid=" + cid + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", regamount="
-				+ regamount + ", sp=" + sp + "]";
+		return "Customer [cid=" + cid + ", fname=" + fname + ", lname=" + lname + ", email=" + email + ", dob=" + dob
+				+ ", lastpaidsuscription=" + lastpaidsuscription + ", regamount=" + regamount + ", sp=" + sp + "]";
 	}
 	public int getCid() {
 		return cid;
@@ -88,11 +100,9 @@ public class Customer implements Comparable<Customer>{
 		}
 		return false;
 	}
-	
 	@Override
 	public int compareTo(Customer cust)
-	{
-		System.out.println("in compareTo");
-		return this.email.compareTo(cust.email)+this.password.compareTo(cust.password);
+	{	
+		return this.email.compareTo(cust.email);
 	}
 }

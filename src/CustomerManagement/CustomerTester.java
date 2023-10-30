@@ -21,8 +21,8 @@ public class CustomerTester{
 			
 			boolean exit = false;
 			while (!exit) {
-				System.out.println("Options : 1 . Customer Registration \n" + "2. Login Authentication via Email \n" + "3. Change password \n "
-						+ "4. Unsuscribe via email \n " + "5. Display all \n"+"6. Add Custom Random data \n"+" 0.Exit : ");
+				System.out.println("Options : 1 . Customer Registration \n" + "2. Login Authentication via Email \n" + "3. Change password \n"
+						+ "4. Unsuscribe via email \n" + "5. Display all \n"+"6. Add Custom Random data \n"+"7. Sort Customers Based on email\n"+"8. Sort Customers based on date of birth\n"+"9. Sort Customers on the basis of date of birth and lanst name\n"+"10. Login through email and query on cutomers who have not paid the suscription amount\n"+" 0.Exit : ");
 				try {
 					switch (sc.nextInt()) {
 					
@@ -107,20 +107,30 @@ public class CustomerTester{
 							break;
 					case 8: Collections.sort(customers,new Comparator<Customer> () {
 							public int compare(Customer o1, Customer o2) {
-									int dopcheck=o1.getDob().compareTo(o2.getDob());
-									return dopcheck;
+								int dobcheck=0;	
+								if(o1.getDob()!=null&&o2.getDob()!=null)
+									{	
+										dobcheck=o1.getDob().compareTo(o2.getDob());
+									}
+									return dobcheck;
 								}
+							
 							});	
-							System.out.println(" Customers are sorted on date of payment!! ");
+							System.out.println(" Customers are sorted on date of birth!! ");
 							break;
 					case 9: Collections.sort(customers,new Comparator<Customer> () {
 							public int compare(Customer o1, Customer o2) {
-									int dopcheck=o1.getDob().compareTo(o2.getDob());
-									if(dopcheck==0)
+								int dobcheck=0;	
+									if(o1.getDob()!=null&&o2.getDob()!=null)
 									{
-										return o1.getLname().compareTo(o2.getLname());
+										dobcheck=o1.getDob().compareTo(o2.getDob());
+										if(dobcheck==0)
+										{
+											return o1.getLname().compareTo(o2.getLname());
+										}
+									
 									}
-									return dopcheck;
+									return dobcheck;
 								}
 							});		
 							System.out.println(" Customers are sorted on date of payment and last name!! ");
@@ -128,10 +138,13 @@ public class CustomerTester{
 					case 10:System.out.println(" Enter the Admin email and password: "); 	
 							if(CustomerUtils.authenticationadmin(sc.next(), sc.next(),customers))
 							{ 
-								System.out.println(" Enter 1 for displaying names of customers whom charges are pending of 3 month ");
-								System.out.println(" Enter 2 for Removing names of customers whom charges are pending of 6 month ");
-								System.out.println(" Choice : ");
+								boolean b=false;
 								try{
+									while(!b) 
+									{
+									System.out.println(" Enter 1 for displaying names of customers whom charges are pending of 3 month ");
+									System.out.println(" Enter 2 for Removing names of customers whom charges are pending of 6 month ");
+									System.out.println(" Enter any value for logging out of Admin... Choice : ");
 									switch(sc.nextInt())
 									{
 										case 1: System.out.println(" These customers have not paid suscription fees from the last 3 months or more ");
@@ -167,8 +180,10 @@ public class CustomerTester{
 												System.out.println(" "+n1+" Customers deleted!! ");
 												break;
 												
-										default:
+										default:System.out.println("As your wish you are logged out!! ");
+												b=true;
 												break;
+									}
 									}
 								}
 								catch(Exception e){

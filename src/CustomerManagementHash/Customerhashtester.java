@@ -1,21 +1,23 @@
-package CustomerManagement;
+package CustomerManagementHash;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+
+import java.util.Map;
 import java.util.Scanner;
+
+import CustomerManagement.Customer;
+import CustomerManagement.InvalidInputException;
+
 import java.time.Period;
 
-public class CustomerTester{
+public class Customerhashtester{
 
 	public static void main(String[] args) {
-	    
-	    List<Customer> customers = new ArrayList<>();// up casting
-	    customers.add(new Customer("Admin","admin@admin","Admin@123"));  //Admin email and password
+
+	    Map<String,Customer> customers = new HashMap<>();// up casting
+	    customers.put("admin@admin",new Customer("Admin","admin@admin","Admin@123"));  //Admin email and password
 		try (Scanner sc = new Scanner(System.in)) {
 			// create suitable D.S
 			
@@ -28,18 +30,17 @@ public class CustomerTester{
 					
 					case 1: // add a vehicle
 							System.out.println("Enter the Customer details- First Name, Last Name, Email, Password, Date of Payment, Registered Amount,Last paid Suscription date ,Service Plan : ");
-							Customer customer=Validationrules.validateallinputs(sc.next(),sc.next(),sc.next(),sc.next(),sc.next(),sc.nextDouble(),sc.next(),sc.next(),customers);
+							Customer customer=Validaterules.validateallinputs(sc.next(),sc.next(),sc.next(),sc.next(),sc.next(),sc.nextDouble(),sc.next(),sc.next(),customers);
 							// => success
-							customers.add(customer);
+							customers.put(customer.getEmail(),customer);
 							System.out.println("Customer registered....");
 							break;
 					case 2:	System.out.println("Enter Email and Password for Logging in..");
 							String email1=sc.next();
 							String pass1=sc.next();
-							if(CustomerUtils.authentication(email1, pass1,customers))
+							if(CustomerUtilshash.authentication(email1, pass1,customers))
 							{
 								Customer a=new Customer(email1,pass1);
-								int cust_index=customers.indexOf(a);
 								System.out.println(" Authentication successful...You are logged in ");
 								System.out.println(" Did you pay the suscription : Y / N ");
 								if(sc.next().toUpperCase().charAt(0)=='Y')
@@ -47,15 +48,15 @@ public class CustomerTester{
 									
 									System.out.println(" Enter the amount you paid, you can also pay more for upgrading your Plan : ");
 									double amt=sc.nextDouble();
-									if(customers.get(cust_index).getSp().getCharge()==amt)
+									if(customers.get(a.getEmail()).getSp().getCharge()==amt)
 									{
-										customers.get(cust_index).setLastpaidsuscription(LocalDate.now());
+										customers.get(a.getEmail()).setLastpaidsuscription(LocalDate.now());
 										System.out.println(" Suscription payed...date updated ");
 									}
 									else
 									{
-										customers.get(cust_index).setSp(Validationrules.RegAmountvalidate(customers.get(cust_index).getSp(),amt));
-										customers.get(cust_index).setRegamount(amt);
+										customers.get(a.getEmail()).setSp(Validaterules.RegAmountvalidate(customers.get(a.getEmail()).getSp(),amt));
+										customers.get(a.getEmail()).setRegamount(amt);
 										System.out.println(" Suscription payed...date updated ");
 									}
 								}
@@ -65,11 +66,11 @@ public class CustomerTester{
 							break;
 					case 3:	System.out.println("Enter Email and Password for changing password");
 							String em=sc.next();
-							if(CustomerUtils.authentication(em, sc.next(),customers))
+							if(CustomerUtilshash.authentication(em, sc.next(),customers))
 							{	
 								System.out.println(" Enter the new password : ");
 								String pass=sc.next();
-								for(Customer t:customers) {
+								for(Customer t:customers.values()) {
 									if(t.getEmail().equals(em))
 									{
 										t.setPassword(pass);
@@ -83,9 +84,9 @@ public class CustomerTester{
 					case 4:	System.out.println("Enter Email and Password for changing password");
 							String em1=sc.next();
 							String pass=sc.next();
-							if(CustomerUtils.authentication(em1,pass,customers))
+							if(CustomerUtilshash.authentication(em1,pass,customers))
 							{	Customer p=new Customer(em1,pass);
-								Customer toremove = customers.get(customers.indexOf(p));
+								Customer toremove = customers.get(p.getEmail());
 								if (!(customers.remove(toremove)))
 									throw new InvalidInputException("Invalid Email , Customer not found !!!!");
 								System.out.println(" Customer unsuscribed succesfully!! ");
@@ -96,10 +97,10 @@ public class CustomerTester{
 							System.out.println("Customer details ");
 							if(customers.size()==0)
 								System.out.println(" Data Not Found!! ");
-							for (Customer c : customers)
+							for (Customer c : customers.values())
 								System.out.println(c);
 							break;
-					case 6: CustomerUtils.addcustomdata(customers);
+					case 6: CustomerUtilshash.addcustomdata(customers);
 							System.out.println(" Added custom data to the list.... ");
 							break;
 					case 7: Collections.sort(customers);	
@@ -212,4 +213,3 @@ public class CustomerTester{
 		}	
 	}	
 }
-

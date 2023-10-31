@@ -1,11 +1,14 @@
 package CustomerManagementHash;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.InputMismatchException;
-
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
+
 
 import CustomerManagement.Customer;
 import CustomerManagement.InvalidInputException;
@@ -17,7 +20,8 @@ public class Customerhashtester{
 	public static void main(String[] args) {
 
 	    Map<String,Customer> customers = new HashMap<>();// up casting
-	    customers.put("admin@admin",new Customer("Admin","admin@admin","Admin@123"));  //Admin email and password
+	    customers.putIfAbsent("admin@admin",new Customer("Admin","admin@admin","Admin@123"));
+	    customers.get("admin@admin").setCid(0);								//Admin email and password
 		try (Scanner sc = new Scanner(System.in)) {
 			// create suitable D.S
 			
@@ -32,7 +36,7 @@ public class Customerhashtester{
 							System.out.println("Enter the Customer details- First Name, Last Name, Email, Password, Date of Payment, Registered Amount,Last paid Suscription date ,Service Plan : ");
 							Customer customer=Validaterules.validateallinputs(sc.next(),sc.next(),sc.next(),sc.next(),sc.next(),sc.nextDouble(),sc.next(),sc.next(),customers);
 							// => success
-							customers.put(customer.getEmail(),customer);
+							customers.putIfAbsent(customer.getEmail(),customer);
 							System.out.println("Customer registered....");
 							break;
 					case 2:	System.out.println("Enter Email and Password for Logging in..");
@@ -86,8 +90,7 @@ public class Customerhashtester{
 							String pass=sc.next();
 							if(CustomerUtilshash.authentication(em1,pass,customers))
 							{	Customer p=new Customer(em1,pass);
-								Customer toremove = customers.get(p.getEmail());
-								if (!(customers.remove(toremove)))
+								if (!(customers.remove(p.getEmail(),p)))
 									throw new InvalidInputException("Invalid Email , Customer not found !!!!");
 								System.out.println(" Customer unsuscribed succesfully!! ");
 							}	
@@ -100,13 +103,16 @@ public class Customerhashtester{
 							for (Customer c : customers.values())
 								System.out.println(c);
 							break;
-					case 6: CustomerUtilshash.addcustomdata(customers);
+					case 6: customers.putAll(CustomerUtilshash.addcustomdata());
 							System.out.println(" Added custom data to the list.... ");
 							break;
-					case 7: Collections.sort(customers);	
-							System.out.println(" Customers are sorted based on email!! ");
+					case 7: TreeMap<String, Customer> M = new TreeMap<>(customers);
+							for(Map.Entry<String, Customer>m: M.entrySet())
+								System.out.println(m);
+							System.out.println(" Above are sorted Customers based on email!! ");
 							break;
-					case 8: Collections.sort(customers,new Comparator<Customer> () {
+					case 8: ArrayList<Customer> C=new ArrayList<>(customers.values());
+							Collections.sort(C,new Comparator<Customer> () {
 							public int compare(Customer o1, Customer o2) {
 								int dobcheck=0;	
 								if(o1.getDob()!=null&&o2.getDob()!=null)
@@ -117,9 +123,12 @@ public class Customerhashtester{
 								}
 							
 							});	
-							System.out.println(" Customers are sorted on date of birth!! ");
+							for( Customer a:C)
+								System.out.println(a);
+							System.out.println(" Above are the sorted Customers on date of birth!! ");
 							break;
-					case 9: Collections.sort(customers,new Comparator<Customer> () {
+					case 9: ArrayList<Customer> P=new ArrayList<>(customers.values());
+							Collections.sort(P,new Comparator<Customer> () {
 							public int compare(Customer o1, Customer o2) {
 								int dobcheck=0;	
 									if(o1.getDob()!=null&&o2.getDob()!=null)
@@ -134,10 +143,12 @@ public class Customerhashtester{
 									return dobcheck;
 								}
 							});		
-							System.out.println(" Customers are sorted on date of payment and last name!! ");
+							for( Customer a:P)
+								System.out.println(a);
+							System.out.println("  Above are the sorted Customers on date of payment and last name!! ");
 							break;
 					case 10:System.out.println(" Enter the Admin email and password: "); 	
-							if(CustomerUtils.authenticationadmin(sc.next(), sc.next(),customers))
+							if(CustomerUtilshash.authenticationadmin(sc.next(), sc.next(),customers))
 							{ 
 								boolean b=false;
 								try{
@@ -150,7 +161,7 @@ public class Customerhashtester{
 									{
 										case 1: System.out.println(" These customers have not paid suscription fees from the last 3 months or more ");
 												int n0=0;
-												for(Customer a: customers)
+												for(Customer a: customers.values())
 												{	
 													if (a.getLastpaidsuscription() != null) { //because admin has null values
 													    Period p = Period.between(a.getLastpaidsuscription(), LocalDate.now());
@@ -163,18 +174,16 @@ public class Customerhashtester{
 												System.out.println(" There are total "+n0+" customers in the list!! ");
 												break;
 										case 2: System.out.println(" Deleting customers who have not paid suscription fees from the last 6 months.. ");
-												ListIterator<Customer> itr = customers.listIterator();
 												int n1=0;
-												while(itr.hasNext())
+												for(Map.Entry<String,Customer> T:customers.entrySet())
 												{	
-													Customer Custom=itr.next();
-													if (Custom.getLastpaidsuscription() != null ) { //because admin has null values
-														Period p=Period.between(Custom.getLastpaidsuscription(), LocalDate.now());
+													Customer F=customers.get(T.getKey());
+													if (F.getLastpaidsuscription()!= null ) { //because admin has null values
+														Period p=Period.between(F.getLastpaidsuscription(), LocalDate.now());
 														if(p.getMonths()>=6||p.getYears()>0)
 														{	
-															
 															n1++;
-															itr.remove();
+															customers.remove(T.getKey());
 														}
 													}
 												}	

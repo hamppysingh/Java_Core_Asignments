@@ -10,7 +10,7 @@ public class Customer implements Comparable<Customer>{
 	private double regamount;
 
 	private ServicePlan sp;
-	private static int autoinc=-1;
+	private static int autoinc=0;
 	public Customer(String fname, String lname, String email, String password, LocalDate dob, double regamount,LocalDate lastpaidsuscription,
 			ServicePlan sp) {
 		super();
@@ -61,6 +61,9 @@ public class Customer implements Comparable<Customer>{
 	}
 	public void setFname(String fname) {
 		this.fname = fname;
+	}
+	public void setCid(int cid) {
+		this.cid = cid;
 	}
 	public String getLname() {
 		return lname;

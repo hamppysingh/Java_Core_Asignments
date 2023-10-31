@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.InputMismatchException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -15,7 +14,9 @@ public class CustomerTester{
 	public static void main(String[] args) {
 	    
 	    List<Customer> customers = new ArrayList<>();// up casting
-	    customers.add(new Customer("Admin","admin@admin","Admin@123"));  //Admin email and password
+	    Customer n=new Customer("Admin","admin@admin","Admin@123");
+	    n.setCid(0);
+	    customers.add(n); //Admin email and password
 		try (Scanner sc = new Scanner(System.in)) {
 			// create suitable D.S
 			

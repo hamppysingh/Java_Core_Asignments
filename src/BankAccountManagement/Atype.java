@@ -2,17 +2,22 @@ package BankAccountManagement;
 
 public enum Atype {
 	SAVING(1000),CURRENT(5000),FD(15000);
-	private int minbalance;
+	private double minbalance;
 
-	private Atype(int minbalance) {
+	private Atype(double minbalance) {
 		this.minbalance = minbalance;
 	}
 
-	public int getMinbalance() {
+	public double getMinbalance() {
 		return minbalance;
 	}
 
 	public void setMinbalance(int minbalance) {
 		this.minbalance = minbalance;
+	}
+
+	double getMinBalance() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

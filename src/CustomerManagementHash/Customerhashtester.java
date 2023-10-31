@@ -174,19 +174,25 @@ public class Customerhashtester{
 												System.out.println(" There are total "+n0+" customers in the list!! ");
 												break;
 										case 2: System.out.println(" Deleting customers who have not paid suscription fees from the last 6 months.. ");
-												int n1=0;
-												for(Map.Entry<String,Customer> T:customers.entrySet())
-												{	
-													Customer F=customers.get(T.getKey());
-													if (F.getLastpaidsuscription()!= null ) { //because admin has null values
-														Period p=Period.between(F.getLastpaidsuscription(), LocalDate.now());
-														if(p.getMonths()>=6||p.getYears()>0)
-														{	
-															n1++;
-															customers.remove(T.getKey());
+												int n1=0,i=0;
+												while(i!=customers.size())
+												{   String key=null;
+													for(Map.Entry<String,Customer> T:customers.entrySet())
+													{	
+														Customer F=customers.get(T.getKey());
+														if (F.getLastpaidsuscription()!= null ) { //because admin has null values
+															Period p=Period.between(F.getLastpaidsuscription(), LocalDate.now());
+															if(p.toTotalMonths()>=6)
+															{	
+																n1++;
+																key=T.getKey();
+																break;
+															}
 														}
 													}
-												}	
+													customers.remove(key);
+													i++;
+												}
 												System.out.println(" "+n1+" Customers deleted!! ");
 												break;
 												
@@ -205,7 +211,7 @@ public class Customerhashtester{
 									}
 							}
 							break;
-					case 0:
+					case 0:System.out.println("As your wish you Exited...!! ");
 						exit = true;
 						break;
 					default:System.out.println(" Invalid Choice Enter Again.... ");	

@@ -2,12 +2,14 @@ package BankAccountManagement;
 
 import java.time.LocalDate;
 
+
 public class BankAccount {
 	private int acctNo;
 	private String cname;
 	private double balance;
 	private LocalDate createdate,txndate;
 	private Atype actype;
+	private boolean isActive;
 	@Override
 	public String toString() {
 		return "BankAccount [acctNo=" + acctNo + ", cname=" + cname + ", balance=" + balance + ", createdate="
@@ -49,15 +51,15 @@ public class BankAccount {
 	public void setActype(Atype actype) {
 		this.actype = actype;
 	}
-	public BankAccount(int acctNo, String cname, double balance, LocalDate createdate, LocalDate txndate,
-			Atype actype) {
+	public BankAccount(int acctNo, String cname, Atype actype, double balance, LocalDate createdate) {
 		super();
 		this.acctNo = acctNo;
 		this.cname = cname;
-		this.balance = balance;
-		this.createdate = createdate;
-		this.txndate = txndate;
 		this.actype = actype;
+		this.balance = balance;
+		this.createdate = createdate;// in real app : LocalDate.now()
+		this.setActive(true);
+		this.txndate = LocalDate.parse(this.createdate.toString());// in real app : LocalDate.now()
 	}
 	public void withdraw(double amt) {
 		if(this.balance-amt<0)
@@ -66,5 +68,15 @@ public class BankAccount {
 	}
 	public void deposit(double amt) {
 		this.balance=this.balance+amt;
+	}
+	public void transferFunds(BankAccount dest, double transferAmount) throws InsufficientFundsException {
+		this.withdraw(transferAmount);
+		dest.deposit(transferAmount);
+	}
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 }

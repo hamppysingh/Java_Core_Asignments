@@ -35,6 +35,14 @@ public class Student{
 		return name;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	public LocalDate getDob() {
 		return dob;
 	}

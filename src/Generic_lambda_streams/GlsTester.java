@@ -21,7 +21,16 @@ public class GlsTester {
 		SM.putAll(StudentCollectionUtils.populateMap(S));
 		boolean t=false;
 		try{while(!t) {
-			System.out.println("Enter the choice to run the following queries:- ");
+			System.out.println(" Enter the choice to run the following queries:- ");
+			System.out.println(" 1. Display the Product details (from Product list) ");
+			System.out.println(" 2. Display all product names of a particular category , exceeding specific price. (from product list) ");
+			System.out.println(" 3. Prompt user for category n discount. (from product map) ");
+			System.out.println(" 4. Use  student based scenario.Display all Students ");
+			System.out.println(" 5. Display all student details(list) sorted as per GPA (from product map) ");
+			System.out.println(" 6. Write a tester to print average of  gpa of students for the specified course/subject ");
+			System.out.println(" 7. Print name of specified subject topper ");
+			System.out.println(" 8. Print no of  failures for the specified subject from the specified city ,chosen  from user. ");
+			System.out.println(" 9. Given a List of strings, write a program to count the number of strings that start with a specific character using streams. ");
 			switch(sc.nextInt()) 
 			{
 				case 1: P.forEach(p->System.out.println(p));
@@ -57,7 +66,10 @@ public class GlsTester {
 				case 8: System.out.println(" Enter the subject whose failure count you want to see : ");
 						String sub3=sc.next();
 						System.out.println(SM.values().stream().filter(p -> p.getSubject().equals(Subject.valueOf(sub3.toUpperCase()))).filter(p -> p.getGpa()<5).count());
-						break;		
+						break;
+				case 9: System.out.println(" Enter the subject whose failure count you want to see : ");
+						System.out.println(P.stream().filter(s -> s.getName().startsWith("A")).count());
+						break;
 				case 0: t=true;
 						break;
 						

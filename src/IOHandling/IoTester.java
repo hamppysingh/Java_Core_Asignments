@@ -30,8 +30,8 @@ public class IoTester {
 		S.addAll(StudentCollectionUtils.populateList());  //Student list 
 		Map<String,Student> SM= new HashMap<>();
 		SM.putAll(StudentCollectionUtils.populateMap(S));  //Map of Student
-		IoUtils.Writeonlist(P, "Product");
-		IoUtils.Writeonmap(SM, "Student");
+		IoUtils.Writeonlist(P, "Product1");
+		IoUtils.Writeonmap(SM, "Student1");
 		boolean t=false;
 		try(Scanner sc =new Scanner(System.in)){while(!t) {		
 			System.out.println(" Enter the choice to run the following queries:- ");
@@ -39,6 +39,7 @@ public class IoTester {
 			System.out.println(" 2. Cancel Admission ");
 			System.out.println(" 3. Store student details of given subject and city ");
 			System.out.println(" 4. Store passed student details(GPA > 6)  as per the specified subject n city , sorted as per DoB , in a text file using buffer.");
+			System.out.println(" 0. Exit ");
 			System.out.println(" Files you have for Reading { Student ,Product } :");
 			switch(sc.nextInt()) 
 			{

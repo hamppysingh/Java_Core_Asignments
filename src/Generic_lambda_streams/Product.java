@@ -1,5 +1,7 @@
 package Generic_lambda_streams;
 
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /*
@@ -7,7 +9,11 @@ import java.time.LocalDate;
  * ,manufactureDate
 
  */
-public class Product {
+public class Product implements Serializable{
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 //state : data
 	private int productId;
 	private String name;

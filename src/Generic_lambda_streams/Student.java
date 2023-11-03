@@ -1,10 +1,15 @@
 package Generic_lambda_streams;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Student{
+public class Student implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String rollNo;
 	private String name;
 	private LocalDate dob;

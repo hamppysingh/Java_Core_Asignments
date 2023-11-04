@@ -1,15 +1,12 @@
 package ShowroomManagement;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 import CustomerManagement.InvalidInputException;
-import ShowroomManagement.Validation;
 
 public class ShowroomTester {
 

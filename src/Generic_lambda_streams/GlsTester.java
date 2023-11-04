@@ -31,6 +31,7 @@ public class GlsTester {
 			System.out.println(" 7. Print name of specified subject topper ");
 			System.out.println(" 8. Print no of  failures for the specified subject from the specified city ,chosen  from user. ");
 			System.out.println(" 9. Given a List of strings, write a program to count the number of strings that start with a specific character using streams. ");
+			System.out.println(" 0. Exit .... Your Choice : ");
 			switch(sc.nextInt()) 
 			{
 				case 1: P.forEach(p->System.out.println(p));

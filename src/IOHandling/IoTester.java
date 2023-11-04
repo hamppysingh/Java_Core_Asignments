@@ -1,10 +1,6 @@
 package IOHandling;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -15,7 +11,6 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import Generic_lambda_streams.Category;
 import Generic_lambda_streams.Product;
 import Generic_lambda_streams.ShopUtils;
 import Generic_lambda_streams.Student;

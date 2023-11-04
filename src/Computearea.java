@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.lang.Math;
 public class Computearea {
 	static double area(int a,int b,int c,double Area) {
 		int s=(a+b+c)/2;

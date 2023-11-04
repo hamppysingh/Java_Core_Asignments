@@ -1,5 +1,6 @@
 package CustomerManagementHash;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -9,11 +10,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
-
 import CustomerManagement.Customer;
 import CustomerManagement.InvalidInputException;
-
-import java.time.Period;
 
 public class Customerhashtester{
 

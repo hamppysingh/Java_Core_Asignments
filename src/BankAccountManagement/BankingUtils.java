@@ -2,10 +2,8 @@ package BankAccountManagement;
 
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class BankingUtils {
 //add a method to populate sample accts data

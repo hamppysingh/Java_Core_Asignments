@@ -1,8 +1,14 @@
 package Generic_lambda_streams;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String city, state, phoneNo;
 
 	public Address(String city, String state, String phoneNo) {

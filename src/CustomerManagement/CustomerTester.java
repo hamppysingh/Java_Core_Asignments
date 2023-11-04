@@ -1,5 +1,6 @@
 package CustomerManagement;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -7,7 +8,6 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
-import java.time.Period;
 
 public class CustomerTester{
 

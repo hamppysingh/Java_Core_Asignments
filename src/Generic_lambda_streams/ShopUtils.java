@@ -1,13 +1,16 @@
 package Generic_lambda_streams;
 
-import java.time.LocalDate;
+import static Generic_lambda_streams.Category.BISCUITS;
+import static Generic_lambda_streams.Category.BREAD;
+import static Generic_lambda_streams.Category.FRUITS;
+import static Generic_lambda_streams.Category.OIL;
+import static java.time.LocalDate.now;
+import static java.time.LocalDate.parse;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static Generic_lambda_streams.Category.*;
-import static java.time.LocalDate.*;
+import java.util.stream.Collectors;
 
 public interface ShopUtils {
 //add a static method to return List of some products'
@@ -31,11 +34,8 @@ public interface ShopUtils {
 
 	// add a static method to return Map of products from populated list of products
 	static Map<Integer, Product> populateProductMap(List<Product> productList) {
-		Map<Integer, Product> map = new HashMap<>();// size=0, init capa=16 , load factor=.75
-		for (Product p : productList)
-			System.out.println("Put rets " + map.put(p.getProductId(), p));
-		System.out.println("size of the map " + map.size());
-		return map;
+		return productList.stream() // Stream<Product>
+				.collect(Collectors.toMap(Product::getProductId, p -> p));// p->p.getProductId()
 	}
 
 }

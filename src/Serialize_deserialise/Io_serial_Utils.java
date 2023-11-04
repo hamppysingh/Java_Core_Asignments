@@ -15,7 +15,7 @@ import Generic_lambda_streams.Student;
 public interface Io_serial_Utils {
 //add a method to restore product details from a bin file using de-ser.
 	@SuppressWarnings("unchecked")
-	static Map<Integer,Product> restoreProductDetails(String fileName) throws IOException,ClassNotFoundException{
+	static Map<Integer,Product> restoreProductDetails(String fileName) throws IOException{
 		// chain of i/o strms
 		// Java App <---- OIS <---- FIS (bin file)
 		try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
@@ -38,11 +38,11 @@ public interface Io_serial_Utils {
 		
 		static void storeStudentDetails(Map<String,Student> map,String FileName) throws IOException{
 			try(ObjectOutputStream O=new ObjectOutputStream(new FileOutputStream(FileName))){
-				O.writeObject(map);
+				O.writeObject(map);			
 			}
 		}
 		@SuppressWarnings("unchecked")
-		static Map<String,Student> restoreStudentDetails(String fileName) throws IOException,ClassNotFoundException{
+		static Map<String,Student> restoreStudentDetails(String fileName) throws IOException{
 			// chain of i/o strms
 			// Java App <---- OIS <---- FIS (bin file)
 			try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {

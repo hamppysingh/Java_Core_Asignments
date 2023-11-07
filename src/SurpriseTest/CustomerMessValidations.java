@@ -13,7 +13,7 @@ public class CustomerMessValidations {
 		MessPlan m=checkplanvalue(checkplan(mp),final_amount);
 		String checkedemail=checkdupemail(checkemailsyntax(email),cm);
 		LocalDate checkregdate=regdatevalidate(validatedate(regdate));
-		LocalDate checkplandate=planendvalidate(checkregdate);
+		LocalDate checkplandate=planendvalidate(checkregdate,m);
 		String validpass=validatepassword(password);
 		String checkmob=validatemobile(phoneno);
 		return new Customer(checkdupid,fname,lname,address,checkmob,checkedemail,validpass,checkregdate,checkplandate,m,final_amount);
@@ -39,10 +39,16 @@ public class CustomerMessValidations {
 			throw new InvalidInputException(" The registration date is not valid ");
 		return validatedate;
 	}
-	public static LocalDate planendvalidate(LocalDate validatedate) {
+	public static LocalDate planendvalidate(LocalDate validatedate,MessPlan m) {
 		// TODO Auto-generated method stub
-		validatedate=validatedate.plusYears(1);
-		return validatedate;
+		if(m.name().equals("MONTHLY"))
+			return validatedate.plusMonths(1);
+		else if(m.name().equals("QUATERLY"))
+			return validatedate.plusMonths(3);
+		else if(m.name().equals("HALFYEARLY"))
+			return validatedate.plusMonths(6);
+		else
+			return validatedate.plusYears(1);
 	}
 
 	public static LocalDate validatedate(String anydate) throws DateTimeParseException{

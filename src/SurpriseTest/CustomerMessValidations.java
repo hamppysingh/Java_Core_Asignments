@@ -5,7 +5,6 @@ import java.time.Period;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
 
-import CustomerManagement.InvalidInputException;
 
 public class CustomerMessValidations {
 	public static Customer ValidateDetails(int custid, String fname, String lname, String address, String phoneno, String email,
@@ -26,7 +25,7 @@ public class CustomerMessValidations {
 		return phoneno;
 	}
 	public static String validatepassword(String password) throws InvalidInputException {
-		if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*%&?]).{8,}"))
+		if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*%&?!]).{8,}"))
 			throw new InvalidInputException(" Password is weak \n\" It should have 1 number,1 uppercase, 1 lowercase, 1  and its length should be 8 or more... ");
 		return password;
 	}

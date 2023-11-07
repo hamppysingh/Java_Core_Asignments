@@ -27,6 +27,11 @@ public class Customer implements Serializable{
 	public Customer(String email) {
 		this.email=email;
 	}
+	public Customer(String email2, String password2) {
+		// TODO Auto-generated constructor stub
+		email=email2;
+		password=password2;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

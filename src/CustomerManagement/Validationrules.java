@@ -9,7 +9,7 @@ public class Validationrules {
 		return ServicePlan.valueOf(sp.toUpperCase());
 	}
 	public static String validatepassword(String password) throws InvalidInputException{
-		if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*%&?]).{8,}"))
+		if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*%!&?]).{8,}"))
 			throw new InvalidInputException(" Password is weak \n\" It should have 1 number,1 uppercase, 1 lowercase, 1  and its length should be 8 or more... ");
 		return password;
 	}

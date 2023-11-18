@@ -12,7 +12,7 @@ public class CustomerMessValidations {
 		int checkdupid=checkcustid(cm,custid);
 		MessPlan m=checkplanvalue(checkplan(mp),final_amount);
 		String checkedemail=checkdupemail(checkemailsyntax(email),cm);
-		LocalDate checkregdate=regdatevalidate(validatedate(regdate));
+		LocalDate checkregdate=validatedate(regdate);
 		LocalDate checkplandate=planendvalidate(checkregdate,m);
 		String validpass=validatepassword(password);
 		String checkmob=validatemobile(phoneno);
@@ -28,16 +28,6 @@ public class CustomerMessValidations {
 		if(!password.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[#@$*%&?!]).{8,}"))
 			throw new InvalidInputException(" Password is weak \n\" It should have 1 number,1 uppercase, 1 lowercase, 1  and its length should be 8 or more... ");
 		return password;
-	}
-	public static LocalDate regdatevalidate(LocalDate validatedate) throws InvalidInputException {
-		// TODO Auto-generated method stub
-		Period p=Period.between(validatedate, LocalDate.now());
-		int years=p.getYears();
-		int months=p.getMonths();
-		int days=p.getDays();
-		if(!(days<=1&&months==0&&years==0))
-			throw new InvalidInputException(" The registration date is not valid ");
-		return validatedate;
 	}
 	public static LocalDate planendvalidate(LocalDate validatedate,MessPlan m) {
 		// TODO Auto-generated method stub
